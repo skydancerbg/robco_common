@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot name="robco_hardware" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+<!-- macro for robco kinect mount standoffs and plate, loads the kinect.urdf.xacro from sensors folder in the appropriate position    -->
+<!-- Created by Stefan -->
+<!-- Service Robotics Group - Bulgaria -  Version 1.0 from Oct. 10th, 2018. -->
+
+
+  <xacro:include filename="$(find robot_description)/urdf/sensors/kinect_camera_macro.xacro" />  
+
+  <xacro:macro name="robco_kinect" >
+
+<!--###########  KINECT STANDOFFS ON THIRD PLATE  #############################-->
+
+  <xacro:robco_standoff parent="third_deck" subname="third_deck_kinect" number="0" lenght= "${kinect_standoff_lenght-round_plate_height}" x_loc="${-kinect_standoff_X_offset}" y_loc="${kinect_standoff_Y_offset}" z_loc="${kinect_standoff_Z_offset}"/>
+  <xacro:robco_standoff parent="third_deck" subname="third_deck_kinect" number="1" lenght= "${kinect_standoff_lenght-round_plate_height}" x_loc="${-kinect_standoff_X_offset}" y_loc="${-kinect_standoff_Y_offset}" z_loc="${kinect_standoff_Z_offset}"/>
+
+
+  <!--<robco_standoff_kinect parent="third_deck" number="0"  x_loc="${kinect_mount_point_from_kinect_standoff_0__X_offset}" y_loc="0.06" z_loc="${round_plate_height}"/>
+  <robco_standoff_kinect parent="third_deck" number="1"  x_loc="${kinect_mount_point_from_kinect_standoff_0__X_offset}" y_loc="-0.06" z_loc="${round_plate_height}"/>-->
+
+<!--###########  KINECT SUPPORT PLATE ON THE STANDOFFS  #############################-->
+
+  <!--<robco_kinect_support_plate parent="standoff_third_deck_kinect_0_link" lenght= "${0.06}" width="${0.15}" height="${round_plate_height}" x_loc="${0.0}" y_loc="-0.06" z_loc="${(kinect_mount_point_from_kinect_standoff_0__Z_offset-round_plate_height)/2+round_plate_half_height}"/>-->
+  <xacro:robco_kinect_support_plate parent="standoff_third_deck_kinect_0_link" lenght= "${kinect_support_lenght}" width="${kinect_support_width}" height="${kinect_support_height}" x_loc="${kinect_support_from_kinect_standoff_0__X_offset}" y_loc="${kinect_support_from_kinect_standoff_0__Y_offset}" z_loc="${kinect_support_from_kinect_standoff_0__Z_offset}"/>
+
+
+
+<!--The Joint to KINECT SUPPORT PLATE TO KINECT is already in the macro-->
+ <!-- JOINT KINECT SUPPORT PLATE TO KINECT -->
+  <!--<joint name="kinect_suppoet_plate_to_kinect_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 ${third_deck_from_second_deck_Z_offset+round_plate_half_height}"/>
+    <parent link="kinect_support_plate_link"/>
+    <child link="kinect???????????????"/>
+  </joint>-->
+
+
+  <!-- Attach the kinect_camera -->
+   <xacro:kinect_camera name="kinect_camera" parent="kinect_support_plate" color="Black">
+      <origin xyz="${0} ${0} ${kinect_support_height+kinect_support_half_height}" rpy="0 0 0" />
+   </xacro:kinect_camera>
+
+
+
+
+<!--########################################-->
+
+  </xacro:macro>
+
+</robot>

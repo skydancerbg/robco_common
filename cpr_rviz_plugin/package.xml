@@ -1,0 +1,40 @@
+<package>
+  <name>cpr_rviz_plugin</name>
+  <version>1.0.0</version>
+  <description>Plugin that allows to operate the CPR Mover robots from RViz</description>
+  <maintainer email="denis@abv.bg">Christian Meyer</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://www.cpr-robots.com</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Christian Meyer</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>rviz</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>message_filters</build_depend>
+  <build_depend>class_loader</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>rviz</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>message_filters</run_depend>
+  <run_depend>class_loader</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>rviz</test_depend> -->
+  <!-- <test_depend>tf</test_depend> -->
+  <!-- <test_depend>message_filters</test_depend> -->
+  <!-- <test_depend>class_loader</test_depend> -->
+
+<export>
+    <rosdoc config="${prefix}/rosdoc.yaml"/>
+    <rviz plugin="${prefix}/plugin_description.xml"/>
+</export>
+
+</package>

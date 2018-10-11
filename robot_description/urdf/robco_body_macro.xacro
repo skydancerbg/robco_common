@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<robot name="robco_hardware" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+<!-- macro for robco body containing second and third deck plates with the standoffs from first and second decks   -->
+<!-- Created by Stefan -->
+<!-- Service Robotics Group - Bulgaria -  Version 1.0 from Oct. 10th, 2018. -->
+
+
+  <xacro:macro name="robco_body" >
+
+
+<!--###########  STANDOFFS ON BASE PLATE  #############################-->
+  <!--<robco_standoff_first_second_deck parent="base_link" number="0" lenght= "${top_first_botom_second_deck_distance}" x_loc="0.09" y_loc="0.165" z_loc="${round_plate_height}"/>
+  <robco_standoff_first_second_deck parent="base_link" number="1" lenght= "${top_first_botom_second_deck_distance}" x_loc="0.09" y_loc="-0.165" z_loc="${round_plate_height}"/>
+  <robco_standoff_first_second_deck parent="base_link" number="2" lenght= "${top_first_botom_second_deck_distance}" x_loc="-0.09" y_loc="0.165" z_loc="${round_plate_height}"/>
+  <robco_standoff_first_second_deck parent="base_link" number="3" lenght= "${top_first_botom_second_deck_distance}" x_loc="-0.09" y_loc="-0.165" z_loc="${round_plate_height}"/>-->
+
+  <xacro:robco_standoff parent="base_link" subname="first_second_deck" number="0" lenght= "${top_first_botom_second_deck_distance}" x_loc="${standoff_X_offset}" y_loc="${standoff_Y_offset}" z_loc="${round_plate_height}"/>
+  <xacro:robco_standoff parent="base_link" subname="first_second_deck" number="1" lenght= "${top_first_botom_second_deck_distance}" x_loc="${standoff_X_offset}" y_loc="${-standoff_Y_offset}" z_loc="${round_plate_height}"/>
+  <xacro:robco_standoff parent="base_link" subname="first_second_deck" number="2" lenght= "${top_first_botom_second_deck_distance}" x_loc="${-standoff_X_offset}" y_loc="${standoff_Y_offset}" z_loc="${round_plate_height}"/>
+  <xacro:robco_standoff parent="base_link" subname="first_second_deck" number="3" lenght= "${top_first_botom_second_deck_distance}" x_loc="${-standoff_X_offset}" y_loc="${-standoff_Y_offset}" z_loc="${round_plate_height}"/>
+
+
+<!--########################################-->
+
+<!--###########  SECOND DECK  #############################-->
+
+
+ <!-- JOINT second_deck TO BASE_LINK -->
+  <joint name="base_link_second_deck_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 ${second_deck_from_base_link_Z_offset+round_plate_half_height}"/>
+    <parent link="base_link"/>
+    <child link="second_deck"/>
+  </joint>
+
+  <!--Link centered on the bottom side of the second deck/plate of the robot-->
+  <link name="second_deck">
+    <pose>0 0 0.1 0 0 0</pose>
+
+    <inertial>
+      <mass value="${second_deck_mass}"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.1" ixy="0" ixz="0"
+          iyy="0.1" iyz="0"
+          izz="0.1"
+      />
+    </inertial>
+
+    <collision name="collision">
+        <origin xyz="0 0 ${round_plate_half_height}" rpy="0 0 0" />
+      <geometry>
+       <cylinder radius="${round_plate_radius}" length="${round_plate_height}"/>
+      </geometry>
+    </collision>
+
+    <visual name="second_deck_visual">
+        <!--<origin xyz="0 0 ${round_plate_half_height}" rpy="0 0 0" />      -->
+      <origin xyz="0 0 0" rpy="${ROTATE_90_DEGREES} 0 ${ROTATE_90_DEGREES}"/>
+      <geometry>
+        <!--<cylinder radius="${round_plate_radius}" length="${round_plate_height}"/>-->
+        <mesh filename="package://robot_description/meshes/Eddiebot/ArloBottomplateTST.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+  </link>
+
+<!--########################################-->
+
+<!--###########  STANDOFFS ON SECOND PLATE  #############################-->
+  <!--<robco_standoff parent="second_deck" subname="second_third_deck" number="0" lenght= "${top_first_botom_second_deck_distance}" x_loc="0.09" y_loc="0.165" z_loc="${round_plate_height}"/>
+  <robco_standoff_second_third_deck parent="second_deck" number="1" lenght= "${top_second_botom_third_deck_distance}" x_loc="0.09" y_loc="-0.165" z_loc="${round_plate_height}"/>
+  <robco_standoff_second_third_deck parent="second_deck" number="2" lenght= "${top_second_botom_third_deck_distance}" x_loc="-0.09" y_loc="0.165" z_loc="${round_plate_height}"/>
+  <robco_standoff_second_third_deck parent="second_deck" number="3" lenght= "${top_second_botom_third_deck_distance}" x_loc="-0.09" y_loc="-0.165" z_loc="${round_plate_height}"/>-->
+
+  <xacro:robco_standoff parent="second_deck" subname="second_third_deck" number="0" lenght= "${top_second_botom_third_deck_distance}" x_loc="${standoff_X_offset}" y_loc="${standoff_Y_offset}" z_loc="${round_plate_height}"/>
+  <xacro:robco_standoff parent="second_deck" subname="second_third_deck" number="1" lenght= "${top_second_botom_third_deck_distance}" x_loc="${standoff_X_offset}" y_loc="${-standoff_Y_offset}" z_loc="${round_plate_height}"/>
+  <xacro:robco_standoff parent="second_deck" subname="second_third_deck" number="2" lenght= "${top_second_botom_third_deck_distance}" x_loc="${-standoff_X_offset}" y_loc="${standoff_Y_offset}" z_loc="${round_plate_height}"/>
+  <xacro:robco_standoff parent="second_deck" subname="second_third_deck" number="3" lenght= "${top_second_botom_third_deck_distance}" x_loc="${-standoff_X_offset}" y_loc="${-standoff_Y_offset}" z_loc="${round_plate_height}"/>
+
+
+<!--########################################-->
+
+<!--######### THIRD DECK ###############################-->
+
+  <!-- JOINT THIRD_DECK TO SECOND_DECK -->
+  <joint name="third_deck_second_deck_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 ${third_deck_from_second_deck_Z_offset+round_plate_half_height}"/>
+    <parent link="second_deck"/>
+    <child link="third_deck"/>
+  </joint>
+
+
+  <!--Link centered on the bottom side of the third plate of the robot-->
+  <link name="third_deck">
+    <pose>0 0 0.1 0 0 0</pose>
+
+    <inertial>
+      <mass value="${third_deck_mass}"/>
+      <origin xyz="0.0 0 0.1" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.1" ixy="0" ixz="0"
+          iyy="0.1" iyz="0"
+          izz="0.1"
+      />
+    </inertial>
+
+    <collision name="collision">
+      <origin xyz="0 0 ${round_plate_half_height}" rpy="0 0 0" />
+      <geometry>
+       <cylinder radius="${round_plate_radius}" length="${round_plate_height}"/>
+      </geometry>
+    </collision>
+
+    <visual name="third_deck__visual">
+       <!--<origin xyz="0 0 0" rpy="0 0 0"/>-->
+      <origin xyz="0 0 0" rpy="${ROTATE_90_DEGREES} 0 ${ROTATE_90_DEGREES}"/>
+
+      <geometry>
+        <mesh filename="package://robot_description/meshes/Eddiebot/ArloBottomplateTST.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+  </link>
+
+<!--########################################-->
+
+  </xacro:macro>
+
+</robot>

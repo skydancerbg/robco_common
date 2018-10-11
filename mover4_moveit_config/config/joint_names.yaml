@@ -1,0 +1,3 @@
+controller_joint_names: [Joint0, Joint1, Joint2, Joint3, Gripper1, Gripper2]
+
+# controller_joint_names: [Joint0, Joint1, Joint2, Joint3]

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot name="kinect_camera_calibration" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- Properties for kinect camera    -->
+<!-- Created by Stefan -->
+<!-- Service Robotics Group - Bulgaria -  Version 1.0 from Oct. 11th, 2018. -->
+
+  <xacro:property name="robco_calib_cam_x" value="-0.0844382" />
+  <xacro:property name="robco_calib_cam_y" value="0" />
+  <xacro:property name="robco_calib_cam_z" value="0.1047496" />
+  <xacro:property name="robco_calib_cam_rr" value="0" />
+  <xacro:property name="robco_calib_cam_rp" value="0" />
+  <xacro:property name="robco_calib_cam_ry" value="0" />
+  <xacro:property name="robco_camera_parent_name" value="kinect_support_plate" />
+
+</robot>

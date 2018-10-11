@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot name="mover_mount_on_robco" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- Macro to mount 4over4 arm on Robco robot at the specified position -->
+<!-- Created by Stefan -->
+<!-- Service Robotics Group - Bulgaria - Version 1.0 from Oct. 11th, 2018. -->
+
+<xacro:include filename="$(find robot_description)/urdf/mover4_macro.xacro" />
+
+<xacro:macro name="robco_mover4">
+<xacro:mover4_arm parent="third_deck" x_loc="${mover4_X_offset}" y_loc="${mover4_Y_offset}" z_loc="${mover4_Z_offset}"/>
+</xacro:macro>
+ 
+ 
+</robot>
