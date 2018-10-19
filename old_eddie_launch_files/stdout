@@ -1,0 +1,96 @@
+... logging to /home/robot/.ros/log/86d7a98c-a9cd-11e8-a5dc-1b01b18a68db/roslaunch-robot-S1200SP-5737.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;eddie.launch
+[1mstarted roslaunch server http://robot-S1200SP:38141/[0m
+
+SUMMARY
+========
+
+PARAMETERS
+ * /camera/camera_nodelet_manager/num_worker_threads: 4
+ * /camera/driver/data_skip: 0
+ * /camera/driver/debug: False
+ * /camera/driver/depth_camera_info_url: 
+ * /camera/driver/depth_frame_id: camera_depth_opti...
+ * /camera/driver/depth_registration: False
+ * /camera/driver/device_id: #1
+ * /camera/driver/diagnostics_max_frequency: 30.0
+ * /camera/driver/diagnostics_min_frequency: 30.0
+ * /camera/driver/diagnostics_tolerance: 0.05
+ * /camera/driver/diagnostics_window_time: 5.0
+ * /camera/driver/enable_depth_diagnostics: False
+ * /camera/driver/enable_ir_diagnostics: False
+ * /camera/driver/enable_rgb_diagnostics: False
+ * /camera/driver/rgb_camera_info_url: 
+ * /camera/driver/rgb_frame_id: camera_rgb_optica...
+ * /diagnostic_aggregator/analyzers/digital_io/path: Digital IO
+ * /diagnostic_aggregator/analyzers/digital_io/startswith: ['Digital Outputs']
+ * /diagnostic_aggregator/analyzers/digital_io/timeout: 5.0
+ * /diagnostic_aggregator/analyzers/digital_io/type: diagnostic_aggreg...
+ * /diagnostic_aggregator/analyzers/mode/path: Mode
+ * /diagnostic_aggregator/analyzers/mode/startswith: ['Operating Mode']
+ * /diagnostic_aggregator/analyzers/mode/timeout: 5.0
+ * /diagnostic_aggregator/analyzers/mode/type: diagnostic_aggreg...
+ * /diagnostic_aggregator/analyzers/nodes/contains: ['Node']
+ * /diagnostic_aggregator/analyzers/nodes/path: Nodes
+ * /diagnostic_aggregator/analyzers/nodes/timeout: 5.0
+ * /diagnostic_aggregator/analyzers/nodes/type: diagnostic_aggreg...
+ * /diagnostic_aggregator/analyzers/power/path: Power System
+ * /diagnostic_aggregator/analyzers/power/startswith: ['Battery', 'Char...
+ * /diagnostic_aggregator/analyzers/power/timeout: 5.0
+ * /diagnostic_aggregator/analyzers/power/type: diagnostic_aggreg...
+ * /diagnostic_aggregator/analyzers/sensors/path: Sensors
+ * /diagnostic_aggregator/analyzers/sensors/startswith: ['Cliff Sensor', ...
+ * /diagnostic_aggregator/analyzers/sensors/timeout: 5.0
+ * /diagnostic_aggregator/analyzers/sensors/type: GenericAnalyzer
+ * /diagnostic_aggregator/base_path: 
+ * /diagnostic_aggregator/pub_rate: 1.0
+ * /eddiebot_joy/axis_angular: 3
+ * /eddiebot_joy/axis_deadman: 4
+ * /eddiebot_joy/axis_linear: 4
+ * /eddiebot_joy/joystick_dead_zone: 0.2
+ * /eddiebot_joy/scale_angular: 1
+ * /eddiebot_joy/scale_linear: 0.5
+ * /eddiebot_node/bonus: False
+ * /eddiebot_node/check_distance_sensors: 0
+ * /eddiebot_node/max_acceleration_cm_per_sec_square: 25
+ * /eddiebot_node/max_angular_speed_deg_per_sec: 60
+ * /eddiebot_node/max_linear_speed_m_per_sec: 0.25
+ * /eddiebot_node/max_slow_speed_m_per_sec: 0.125
+ * /eddiebot_node/slow_speed_distance_cm: 100
+ * /eddiebot_node/stop_distance_cm: 40
+ * /eddiebot_node/update_rate: 30.0
+ * /joystick/dev: /dev/input/js1
+ * /robot/name: eddiebot
+ * /robot/type: eddiebot
+ * /robot_description: <?xml version="1....
+ * /robot_state_publisher/publish_frequency: 5.0
+ * /rosbridge_websocket/address: 
+ * /rosbridge_websocket/authenticate: False
+ * /rosbridge_websocket/port: 9090
+ * /rosdistro: kinetic
+ * /rosversion: 1.12.13
+ * /speech/amplitude: 200
+ * /speech/gap: 10
+ * /speech/language: bg
+ * /speech/pitch: 20
+ * /speech/speed: 170
+ * /use_sim_time: False
+ * /web_video_server/port: 8080
+
+NODES
+  /camera/
+    camera_nodelet_manager (nodelet/nodelet)
+    driver (nodelet/nodelet)
+    rgb_debayer (nodelet/nodelet)
+    rgb_rectify_color (nodelet/nodelet)
+    rgb_rectify_mono (nodelet/nodelet)
+  /
+    camera_base_link (tf2_ros/static_transform_publisher)
+    camera_base_link1 (tf2_ros/static_transform_publisher)
+    camera_base_link2 (tf2_ros/static_transform_publisher)
+    camera_base_link3 (tf2_ros/static_transform_publisher)
+    diagnostic_aggregator (diagnostic_aggregator/aggregator_node)
+    eddiebot_joy (eddiebot_joy/eddie

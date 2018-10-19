@@ -1,0 +1,33 @@
+for server
+
+sudo apt-get install python-django
+
+"https://nodejs.org/en/download/package-manager/"
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+for ros and ubuntu
+
+sudo apt-get install ros-kinetic-web-video-server ros-kinetic-rosbridge-suite
+
+sudo usermod -a -G dialout <username>
+create new profile in terminal named: halt
+rospack profile
+
+to start server and web socket in terminal: 
+cd WebUI; 
+./start_webui.sh;
+
+
+
+install kinect drivers:	 	
+git clone https://github.com/OpenKinect/libfreenect
+cd libfreenect
+mkdir build
+cd build
+cmake -L .. # -L lists all the project options
+make
+
+
+dir location of WebUI: home dir
+

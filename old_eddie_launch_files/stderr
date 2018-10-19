@@ -1,0 +1,19 @@
+warning: xacro: Traditional processing is deprecated. Switch to --inorder processing!
+To check for compatibility of your document, use option --check-order.
+For more infos, see http://wiki.ros.org/xacro#Processing_Order
+warning: deprecated: xacro tags should be prepended with 'xacro' xml namespace.
+Use the following script to fix incorrect usage:
+        find . -iname "*.xacro" | xargs sed -i 's#<\([/]\?\)\(if\|unless\|include\|arg\|property\|macro\|insert_block\)#<\1xacro:\2#g'
+when processing file: /home/robot/eddiebot/eddiebot/eddiebot_description/robots/eddiebot.urdf.xacro
+
+warning: xacro.py is deprecated; please use xacro instead
+/home/robot/eddiebot/eddiebot/eddiebot_node/nodes/eddiebot_node.py:55: UserWarning: roslib.rosenv is deprecated, please use rospkg or rosgraph.rosenv
+  import roslib.rosenv
+/home/robot/eddiebot/eddiebot/eddiebot_node/nodes/eddiebot_node.py:207: SyntaxWarning: The publisher should be created with an explicit keyword argument 'queue_size'. Please see http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers for more information.
+  self.joint_states_pub = rospy.Publisher('joint_states', JointState)
+/home/robot/eddiebot/eddiebot/eddiebot_node/nodes/eddiebot_node.py:208: SyntaxWarning: The publisher should be created with an explicit keyword argument 'queue_size'. Please see http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers for more information.
+  self.odom_pub = rospy.Publisher('odom', Odometry)
+/home/robot/eddiebot/eddiebot/eddiebot_node/nodes/eddiebot_node.py:210: SyntaxWarning: The publisher should be created with an explicit keyword argument 'queue_size'. Please see http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers for more information.
+  self.sensor_state_pub = rospy.Publisher('~sensor_state', EddiebotSensorState)
+/home/robot/eddiebot/eddiebot/eddiebot_node/src/eddiebot_node/diagnostics.py:55: SyntaxWarning: The publisher should be created with an explicit keyword argument 'queue_size'. Please see http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers for more information.
+  self.diag_pub = rospy.Publisher('/diagnostics', DiagnosticArray)

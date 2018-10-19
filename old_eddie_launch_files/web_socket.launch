@@ -1,0 +1,9 @@
+  <launch>
+  
+  <node name="rosbridge_websocket" pkg="rosbridge_server" respawn="true" type="rosbridge_websocket">
+    <param name="authenticate" value="false" />
+    <param name="port" value="9090" />
+    <param name="address" value="" />
+  </node>
+
+  </launch>
