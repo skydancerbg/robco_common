@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/robot/linorobot_ws/devel/include",
+        "/opt/ros/kinetic/include",
+        "/home/robot/linorobot_ws/src/robco_common/cpr_mover/include",
+        "/home/robot/linorobot_ws/src/imu_calib/include",
+        "/home/robot/linorobot_ws/src/lino_pid/include",
+        "/home/robot/linorobot_ws/src/linorobot/include",
+        "/home/robot/linorobot_ws/src/teleop_twist_joy/include",
+        "/usr/include"
+      ],
+      "name": "Linux"
+    }
+  ]
+}
