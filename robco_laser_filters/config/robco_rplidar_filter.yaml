@@ -1,21 +1,93 @@
-# scan_filter_chain:
-# - name: angle
-#   type: LaserScanAngularBoundsFilterInPlace
-#   params:
-#     lower_angle: 0.685398163
-#     upper_angle: 0.885398163  
-
-
-# scan_filter_chain:
-# - name: laser_cutoff
-#   type: laser_filters/LaserScanAngularBoundsFilter
-#   params:
-#     lower_angle: -1.60876090527
-#     upper_angle: 1.60876090527      
-
 scan_filter_chain:
-- name: laser_cutoff
+# Publishing the result to /scan_filtered topic
+- name: laser_left_cutoff
+#   cut the sector containing left standoffs from the laser scan      
   type: laser_filters/LaserScanAngularBoundsFilterInPlace
   params:
-    lower_angle: -1.60876090527
-    upper_angle:  1.60876090527          
+    lower_angle: -1.1353366784
+    upper_angle: -0.46949356879
+
+- name: laser_right_cutoff
+#   cut the sector containing right standoffs from the laser scan       
+  type: laser_filters/LaserScanAngularBoundsFilterInPlace
+  params:
+    lower_angle: 0.46949356879
+    upper_angle: 1.1353366784
+
+
+
+
+# # scan_filter_chain:
+# # - name: laser_cutoff
+# # #   type: laser_filters/LaserScanAngularBoundsFilter        
+# #   type: laser_filters/LaserScanAngularBoundsFilterInPlace
+# #   params:
+# #     # 92 degrees 1.60876090527
+# #     # 120 degrees 2.0944
+# #     # 160 degrees 2.79253
+# #     # 65 degrees 1.13446  pokazwa se              
+# #     # 64.5 degrees 1.125737                
+# #     # 80 degrees 1.39626                
+# #     # 75 degrees 1.309                # 30 degrees 0.5235987756
+# #     # 85 degrees 1.48353                # 40 degrees 0.523599
+# #     # 70 degrees 1.22173                # 38 degrees 0.663225
+# #     # 67 degrees 1.16937                # 39 degrees 0.680678
+# #     # 66 degrees 1.15192                # 25 degrees 0.436332
+# #     # 65.7 degrees 1.1466813186
+# #     # 65.5 degrees 1.143191                # 60 degrees 1.0472 
+ 
+# #     # 65.2 degrees   1.1379546723 
+# #     # 65.1 degrees 1.136209343  
+# #     # 65.05 degrees  1.1353366784 tova e!!!               
+# #     # 65 degrees 1.1344640138
+# #     # 64.5 degrees 
+# #     # 64 degrees 1.1170107213
+# #     # 63.9 degrees 1.115265392 
+# #     # 63.7 degrees 1.1117747335  
+# #     # 63.6 degrees 1.1100294043  
+# #     # 63.5 degrees  1.108284075       
+# #     # 63 degrees 1.09956                # 55 degrees 0.959931    
+# #     # 62 degrees 1.0821         pokazwa se              # 92 degrees 1.60876090527
+# #     # 61 degrees 1.0646508437                          # 120 degrees 2.0944
+# #     # 60 degrees 1.0471975512                         # 160 degrees 2.79253
+# #     # 59 degrees 1.0297442587                       # 30 degrees 0.523599
+# #     # 58 degrees 1.0122909662                         # 40 degrees 0.523599
+# #     # 57 degrees 0.99483767364                         # 38 degrees 0.663225
+ 
+# #     # 25 degrees 0.436332313
+# #     # 26 degrees 0.45378560552
+# #     # 26.5 degrees 0.46251225178
+# #     # 26.8 degrees 0.46774823953
+# #     # 26.9 degrees 0.46949356879  tova e za otzad!
+# #     # 27 degrees 0.47123889804
+# #     # 27.5 degrees 0.4799655443
+# #     # 28 degrees 0.48869219056
+# #     # 29 degrees 0.50614548308
+# #     # 30 degrees 0.5235987756
+# #     # 35 degrees 0.6108652382
+# #     # 40 degrees 0.6981317008
+# #     # 45 degrees 0.7853981634
+# #     # 50 degrees 0.872664626
+
+
+# #     #  degrees
+# #     lower_angle: -1.1353366784
+# #     upper_angle:  1.1353366784
+   
+   
+    
+# # # scan_filter_chain:
+# # # - name: angle
+# # #   type: LaserScanAngularBoundsFilterInPlace
+# # #   params:
+# # #     lower_angle: 0.685398163
+# # #     upper_angle: 0.885398163  
+
+
+# # # scan_filter_chain:
+# # # - name: laser_cutoff
+# # #   type: laser_filters/LaserScanAngularBoundsFilter
+# # #   params:
+# # #     lower_angle: -1.60876090527
+# # #     upper_angle: 1.60876090527      
+    
