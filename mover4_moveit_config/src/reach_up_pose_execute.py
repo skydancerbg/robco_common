@@ -7,12 +7,13 @@ import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg
 
+# tova maj ne ni triabva?????????????????????????
 moveit_commander.roscpp_initialize(sys.argv)
 # rospy.init_node('move_group_python_interface_tutorial', anonymous=True)
 rospy.init_node('mover4_move_group_python_interface', anonymous=True)
 
-robot = moveit_commander.RobotCommander()
-scene = moveit_commander.PlanningSceneInterface()    
+# robot = moveit_commander.RobotCommander()
+# scene = moveit_commander.PlanningSceneInterface()    
 group = moveit_commander.MoveGroupCommander("robot")
 # gripper = moveit_commander.MoveGroupCommander("gripper")
 

@@ -13,7 +13,9 @@ rospy.init_node('mover4_move_group_python_interface', anonymous=True)
 
 robot = moveit_commander.RobotCommander()
 scene = moveit_commander.PlanningSceneInterface()    
+# group = moveit_commander.MoveGroupCommander("robot")
 group = moveit_commander.MoveGroupCommander("robot")
+
 # gripper = moveit_commander.MoveGroupCommander("gripper")
 
 

@@ -1,5 +1,5 @@
 <launch>
-	<param name="robot_type" value="CPRMover4"/>
+	<param name="robot_type" value="mover4"/>
 	<param name="robot_description" textfile="$(find cpr_rviz_plugin)/CPRMover4.urdf.xacro" />
 
 	<param name="use_gui" value="True"/>
