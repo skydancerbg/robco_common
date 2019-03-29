@@ -10,9 +10,19 @@
 
 
     <joint name="rplidar_a2_joint" type="fixed">
-      <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 0 0" />
+      <!--<origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 0 0" />-->
+      <!--Working parameters set for the static_transform_publisher -->
+      <!--<node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_laser" args="0.1876 0 0.178 0 3.14159 3.14159   /base_link /laser"/>-->
+
+      <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 ${ROTATE_180_DEGREES} ${ROTATE_180_DEGREES}" />
       <parent link="${parent}"/>
-      <child link="rplidar_laser_beam_plane" />
+
+      <!--This link represents the laser beam plane and orientation-->
+      <!--Cahnge the name to laser as this name is used in the navigation stack-->
+      <!--<child link="rplidar_laser_beam_plane" />-->
+
+      <child link="laser" />
+      
     </joint>
 
 
@@ -23,7 +33,8 @@
   </joint>-->
 
   <!-- rplidar Laser -->
-  <link name="rplidar_laser_beam_plane">
+  <!--<link name="rplidar_laser_beam_plane">-->
+  <link name="laser">
       <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -34,6 +45,7 @@
 
     <visual>
     <!--Looks like the rplidar mesh is not with the correct diameter, modifying the Y offset in order to show the visual "almost" correctly -->
+      <!--<origin xyz="${mesh_offset_X} ${mesh_offset_Y} ${mesh_offset_Z}" rpy="0 0 0" />-->
       <origin xyz="${mesh_offset_X} ${mesh_offset_Y} ${mesh_offset_Z}" rpy="0 0 0" />
       <geometry>
         <!--<mesh filename="package://robot_description/meshes/rplidar-a2m4.stl" scale="0.001 0.001 0.001" />-->

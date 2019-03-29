@@ -4,11 +4,19 @@
 <!-- Macro to mount imu arm on Robco robot at the specified position -->
 <!-- Created by Stefan -->
 <!-- Service Robotics Group - Bulgaria - Version 1.0 from Oct. 11th, 2018. -->
+<!--Modified on 29.3.2019 - Mount the IMU based on base_link coordinates -->
 
 <xacro:include filename="$(find robot_description)/urdf/sensors/imu_macro.xacro" />
 
+<!--imu_link is used in the navigation stack - it should represent the center of the IMU chip-->
+<!--This mount point sets the imu_link position on the robot-->
+
 <xacro:macro name="robco_imu">
-<xacro:imu parent="third_deck" x_loc="${0}" y_loc="${0}" z_loc="${0}"/>
+<!--<xacro:imu parent="third_deck" x_loc="${0}" y_loc="${0}" z_loc="${0}"/>-->
+
+<!--For now the IMU is mounted in the center, on top of the base plate, which is round_plate_height over the base_link point-->
+<xacro:imu parent="base_link" x_loc="${0}" y_loc="${0}" z_loc="${round_plate_height}"/>
+
 </xacro:macro>
  
  

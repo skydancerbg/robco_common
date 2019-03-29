@@ -14,7 +14,8 @@
   <xacro:property name="M_PI" value="3.14159265358979323846264338327950288419716" />
   <!--<xacro:property name="M_PI" value="3.1415926535897931" />-->
   <xacro:property name="M_PI_2" value="1.570796327" />
-  <xacro:property name="ROTATE_90_DEGREES" value="1.570796327" />
+  <xacro:property name="ROTATE_90_DEGREES" value="${M_PI_2}" />
+  <xacro:property name="ROTATE_180_DEGREES" value="${M_PI}" />  
   <xacro:property name="DEG_TO_RAD" value="0.017453293" />
   <xacro:property name="SCALE_in_to_m" value="0.0254"/> <!--inches to meters-->
   <xacro:property name="SCALE_mm_to_m" value="0.001"/> <!--milimeters to meters-->

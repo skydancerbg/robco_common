@@ -15,6 +15,7 @@ robot = moveit_commander.RobotCommander()
 scene = moveit_commander.PlanningSceneInterface()    
 group = moveit_commander.MoveGroupCommander("robot")
 gripper = moveit_commander.MoveGroupCommander("gripper")
+
 # display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path', moveit_msgs.msg.DisplayTrajectory, queue_size=1)
 
 # create publisher to send reset connect motor enable commands
@@ -29,8 +30,9 @@ rospy.loginfo("NACHALOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
 # gripper.set_named_target("GripperClose")
 # gripper.go(wait=True)
 
-# gripper.set_named_target("GripperOpen")
-# gripper.go(wait=True)
+gripper.set_named_target("GripperOpen")
+gripper.go(wait=True)
+rospy.sleep(10)
 
 # gripper.set_named_target("GripperClose")
 # gripper.go(wait=True)
@@ -41,6 +43,7 @@ rospy.loginfo("NACHALOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
 gripper.set_named_target("GripperClose")
 gripper.go(wait=True)
 # rospy.sleep(15)
+
 # group.clear_pose_targets()
 # group.get_current_pose()
 # group.set_named_target("transport_position")
