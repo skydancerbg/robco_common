@@ -110,8 +110,11 @@ void executeTrajectory(const control_msgs::FollowJointTrajectoryGoalConstPtr& go
   }
   ROS_INFO("Trajectory with %d positions received \n", nrOfPoints);
   printTargetPointList();
+
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   as->setSucceeded();
+// 
+////////////////////////////////////////////
 
 }
 
@@ -129,7 +132,9 @@ void executeGripper(const control_msgs::GripperCommandGoalConstPtr & goal, Gripp
 		gripperRequest = 2;
 		  ROS_INFO("GripperAction: close");
 	}
+////////////////////////////////////////////////////////////////////////	
 	as->setSucceeded();
+///////////////////////////////////////////////////////////////////////	
 }
 void quit(int sig)
 {
@@ -444,6 +449,11 @@ namespace cpr_robots{
 
 		    // change to a new target position while the list is not empty
 			if(flagDone){
+
+//////////////////////STEFAN move the response here?????????/////////////////////////////////////////////////////////////
+//   as->setSucceeded();
+//////////////////////////////////////////////////////////////////				
+
 				robotState rs;
 				int size = targetPointList.size();
 				if(size > 0){
