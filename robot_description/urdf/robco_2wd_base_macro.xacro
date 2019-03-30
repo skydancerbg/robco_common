@@ -114,6 +114,7 @@
     </inertial>
   </link>
 
+
   <joint type="continuous" name="left_wheel_hinge">
     <origin xyz="0 ${base_y_origin_to_wheel_origin} ${base_z_origin_to_wheel_origin}" rpy="0 0 0"/>
         <!--<origin xyz="0 0.19 -${0.10 - 0.0231}" rpy="0 0 0"/>-->

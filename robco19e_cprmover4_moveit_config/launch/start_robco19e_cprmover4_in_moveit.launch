@@ -34,7 +34,7 @@
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
 <!--By Me ................................-->
-<!--<include file="$(find mover4_moveit_config)/launch/joystick_control.launch"/>-->
+<!--<include file="$(find robco19e_cprmover4_moveit_config)/launch/joystick_control.launch"/>-->
 <!--...................-->
 
   <!-- Run Rviz and load the default config to see the state of the move_group node -->

@@ -1,7 +1,4 @@
-
 controller_list:
-
-# # dobaveno ot men /taka se kazwa topika na actionservera, koito se puska s rosrun cpr_mover cpr_mover/:
  - name: mover4_arm
    action_ns: follow_joint_trajectory
    type: FollowJointTrajectory
@@ -21,7 +18,7 @@ controller_list:
 #      - Joint1
 #      - Joint2
 #      - Joint3
-# # dobaveno ot men /taka se kazwa topika na actionservera, koito se puska s rosrun cpr_mover cpr_mover/:
+# # dobaveno ot men:
  - name: mover4_gripper
    action_ns: gripper_command
    type: GripperCommand
