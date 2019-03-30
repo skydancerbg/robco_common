@@ -43,7 +43,7 @@
         <turnGravityOff>false</turnGravityOff>
     </gazebo>
 
-  <!-- JOINT BASE_LINK TO BASE_FRAME-->
+  <!-- JOINT BASE_LINK TO BASE_FOOTPRINT-->
   <joint name="base_footprint_base_link_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 ${base_plate_botom_from_base_frame_Z_offset}"/>
     <parent link="base_footprint"/>

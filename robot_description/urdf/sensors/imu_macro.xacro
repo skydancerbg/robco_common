@@ -8,13 +8,14 @@
 
 
   <xacro:macro name="imu" params="parent x_loc y_loc z_loc">
+
+<!--imu_link is used in the navigation stack - it should represent the center of the IMU chip-->
   
   <joint name="imu_joint" type="fixed">
     <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 0 0" />
     <parent link="${parent}"/>
     <child link="imu_link" />
   </joint>
-
 
   <link name="imu_link">
     <inertial>

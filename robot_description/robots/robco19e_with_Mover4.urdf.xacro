@@ -22,7 +22,7 @@
   <xacro:include filename="$(find robot_description)/urdf/robco_body_macro.xacro" />
   <xacro:include filename="$(find robot_description)/urdf/robco_imu_macro.xacro" />
   <xacro:include filename="$(find robot_description)/urdf/robco_rplidar_macro.xacro" />
-  <!--<xacro:include filename="$(find robot_description)/urdf/robco_mover4_macro.xacro" />-->
+  <xacro:include filename="$(find robot_description)/urdf/robco_mover4_macro.xacro" />
   <xacro:include filename="$(find robot_description)/urdf/robco_kinect_mount_macro.xacro" /> 
 
 <!--###################################################################################-->
@@ -39,13 +39,17 @@
 <!--!!!! TODO get the actual measuments and correct the data in imu_macro.xacro and robco_imu_macro.xacro !!!!!!!!!!!-->
 <xacro:robco_imu/>
 <!--Visual for the IMU mount point comment out !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-  <xacro:robco_mountpoint_visualizer_box parent="base_link" device_name="imu" lenght= "${0.01}" width="${0.01}" height="${0.01}" x_loc="${0.0}" y_loc="${0.0}" z_loc="${round_plate_height}"/>
+  <xacro:robco_mountpoint_visualizer_box parent="base_link" device_name="imu" lenght= "${0.01}" width="${0.01}" height="${0.01}" x_loc="${0.0}" y_loc="${0.0}" z_loc="${0.04}"/>
 
 <!--########### ADD RPLIDAR A2  #############################-->
 <xacro:robco_rplidar_a2/>
 <!--Visual for the RPLidar A2 mount point comment out !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
   <xacro:robco_mountpoint_visualizer_box parent="second_deck" device_name="laser" lenght= "${0.01}" width="${0.01}" height="${0.01}" x_loc="${rplidar_X_offset}" y_loc="${rplidar_Y_offset}" z_loc="${rplidar_Z_offset}"/>
 
+<!--########### ADD MOVER 4 ARM  #############################-->
+<xacro:robco_mover4/>
+<!--Visual for the mover4 mount point comment out !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+  <xacro:robco_mountpoint_visualizer_box parent="third_deck" device_name="mover4_arm" lenght= "${round_plate_height}" width="${round_plate_height}" height="${round_plate_height}" x_loc="${mover4_X_offset}" y_loc="${mover4_Y_offset}" z_loc="${mover4_Z_offset}"/>
 
 <!--########### ADD KINECT  #############################-->
 <xacro:robco_kinect />

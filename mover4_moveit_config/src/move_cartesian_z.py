@@ -181,7 +181,11 @@ class MoveItDemo:
 
         gripper.set_named_target("GripperClose")
         gripper.go(wait=True)
-        
+        rospy.sleep(5)
+       
+        arm.set_named_target('transport_position')
+        arm.go(wait=True)
+        rospy.sleep(27)
        
         # Shut down MoveIt cleanly
         moveit_commander.roscpp_shutdown()

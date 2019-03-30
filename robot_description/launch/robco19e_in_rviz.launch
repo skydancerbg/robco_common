@@ -9,7 +9,8 @@
 	
 	<!--<node name="rviz" pkg="rviz" type="rviz" args="-d $(find robko19m_cpr_rviz)/launch/config.rviz" />-->
 
-	<node name="rviz" pkg="rviz" type="rviz" />
+	<!--<node name="rviz" pkg="rviz" type="rviz" />-->
+	<node type="rviz" name="rviz" pkg="rviz" args="-d $(find robot_description)/launch/robco19e_rviz.rviz" />
 
 </launch>
 
