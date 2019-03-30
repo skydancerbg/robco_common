@@ -1,0 +1,10 @@
+		
+                             degr     roadians                           degree   roadians
+        jointMinMax[0][0] = -150.0;	-2.6179938780	        jointMinMax[0][1] = 150.0;  2.6179938780
+		jointMinMax[1][0] = -30.0;	-0.5235987756           jointMinMax[1][1] =  60.0;  1.0471975512
+		jointMinMax[2][0] = -40.0;	-0.6981317008	        jointMinMax[2][1] = 140.0;  2.4434609528
+		jointMinMax[3][0] = -130.0; -2.2689280276           jointMinMax[3][1] = 130.0;  2.2689280276
+
+        tezi sa za mover6:
+		jointMinMax[4][0] = -90.0;  -1.5707963268	        jointMinMax[4][1] = 90.0;   1.5707963268
+		jointMinMax[5][0] = -130.0; -2.2689280276           jointMinMax[5][1] = 130.0;  2.2689280276

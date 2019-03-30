@@ -1,0 +1,734 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="robco19e">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="gripper">
+        <joint name="Gripper1" />
+        <joint name="Gripper2" />
+    </group>
+    <group name="arm">
+        <chain base_link="base_link" tip_link="gripperBody" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+      <group_state name="cartesian_x" group="arm">
+        <joint name="Joint0" value="0" />
+        <joint name="Joint1" value="-0.3670462324" />
+        <joint name="Joint2" value="1.8366989837" />
+        <joint name="Joint3" value="-0.03868469927" />
+    </group_state>
+
+    <group_state name="cartesian_z" group="arm">
+        <joint name="Joint0" value="0" />
+        <joint name="Joint1" value="-0.400121967" />
+        <joint name="Joint2" value="1.850031554" />
+        <joint name="Joint3" value="-0.03868469927" />
+    </group_state>
+
+
+    <group_state name="pick_from_small_table" group="arm">
+        <joint name="Joint0" value="0" />
+        <joint name="Joint1" value="0.767945" />
+        <joint name="Joint2" value="0.9948" />
+        <joint name="Joint3" value="-0.401426" />
+    </group_state>
+    <group_state name="transport_position" group="arm">
+        <joint name="Joint0" value="0" />
+        <joint name="Joint1" value="-0.4886" />
+        <joint name="Joint2" value="2.426" />
+        <joint name="Joint3" value="-0.488692" />
+    </group_state>
+    <group_state name="place_on_tall_table" group="arm">
+        <joint name="Joint0" value="1.43117" />
+        <joint name="Joint1" value="0.191986" />
+        <!--<joint name="Joint2" value="0.8377" />-->
+        <joint name="Joint2" value="0.959931" />
+        <joint name="Joint3" value="0.296706" />
+    </group_state>
+    <group_state name="release_bottle_on_tall_table" group="arm">
+        <joint name="Joint0" value="1.41372" />
+        <joint name="Joint1" value="-0.1745" />
+        <joint name="Joint2" value="1.3264" />
+        <joint name="Joint3" value="0.296706" />
+    </group_state>
+    <group_state name="clear_of_tall_table" group="arm">
+        <joint name="Joint0" value="0.523599" />
+        <joint name="Joint1" value="-0.174533" />
+        <joint name="Joint2" value="1.32645" />
+        <joint name="Joint3" value="0.296706" />
+    </group_state>
+    <group_state name="reach_up" group="arm">
+        <joint name="Joint0" value="0" />
+        <joint name="Joint1" value="0.1726" />
+        <joint name="Joint2" value="0.4143" />
+        <joint name="Joint3" value="0.6904" />
+    </group_state>
+
+    <group_state name="vertical" group="arm">
+        <joint name="Joint0" value="0" />
+        <joint name="Joint1" value="0" />
+        <joint name="Joint2" value="0" />
+        <joint name="Joint3" value="0" />
+    </group_state>
+    <group_state name="init_straight_up" group="arm">
+        <joint name="Joint0" value="0" />
+        <joint name="Joint1" value="0" />
+        <joint name="Joint2" value="0" />
+        <joint name="Joint3" value="0" />
+    </group_state>
+    <group_state name="rest" group="arm">
+        <joint name="Joint0" value="0" />
+        <joint name="Joint1" value="-0.2824" />
+        <joint name="Joint2" value="1.7649" />
+        <joint name="Joint3" value="-0.3177" />
+    </group_state>
+
+
+    <!--For the gripper:-->
+
+    <group_state name="GripperClose" group="gripper">
+        <joint name="Gripper1" value="-1.5707963268" />
+        <joint name="Gripper2" value="2.2689280276" />
+    </group_state>
+    <group_state name="GripperOpen" group="gripper">
+        <joint name="Gripper1" value="1.5707963268" />
+        <joint name="Gripper2" value="-2.2689280276" />
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <!--<end_effector name="gripper" parent_link="gripperBody" group="gripper" />-->
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="virtual_joint_base_world" type="fixed" parent_frame="world" child_link="base_footprint" />
+    <!--PASSIVE JOINT: Purpose: this element is used to mark joints that are not actuated-->
+    <passive_joint name="left_wheel_hinge" />
+    <passive_joint name="right_wheel_hinge" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="arm_base_link" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="base_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="caster_box_back" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="caster_box_front" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="caster_sphere_back" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="caster_sphere_front" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="geoJoint1" reason="Adjacent" />
+    <disable_collisions link1="arm_base_link" link2="geoJoint2" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="geoJoint3" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="kinect_camera_base_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="laser" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="mover4_arm_mount_point_visualizer_link" reason="Default" />
+    <disable_collisions link1="arm_base_link" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="second_deck" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="arm_base_link" link2="third_deck" reason="Adjacent" />
+    <disable_collisions link1="base_footprint" link2="base_link" reason="Adjacent" />
+    <disable_collisions link1="base_footprint" link2="caster_box_back" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="caster_box_front" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="caster_sphere_back" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="caster_sphere_front" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="geoJoint1" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="geoJoint2" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="geoJoint3" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="geoJoint4" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="gripperBody" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="gripperFinger1" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="gripperFinger2" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="kinect_camera_base_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="laser" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="second_deck" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="third_deck" reason="Never" />
+    <disable_collisions link1="base_link" link2="caster_box_back" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="caster_box_front" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="caster_sphere_back" reason="Never" />
+    <disable_collisions link1="base_link" link2="caster_sphere_front" reason="Never" />
+    <disable_collisions link1="base_link" link2="geoJoint1" reason="Never" />
+    <disable_collisions link1="base_link" link2="geoJoint2" reason="Never" />
+    <disable_collisions link1="base_link" link2="geoJoint3" reason="Never" />
+    <disable_collisions link1="base_link" link2="geoJoint4" reason="Never" />
+    <disable_collisions link1="base_link" link2="gripperBody" reason="Never" />
+    <disable_collisions link1="base_link" link2="gripperFinger1" reason="Never" />
+    <disable_collisions link1="base_link" link2="gripperFinger2" reason="Never" />
+    <disable_collisions link1="base_link" link2="imu_mount_point_visualizer_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="kinect_camera_base_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="laser" reason="Never" />
+    <disable_collisions link1="base_link" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="left_wheel" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="right_wheel" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="second_deck" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="standoff_first_second_deck_0_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="standoff_first_second_deck_1_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="standoff_first_second_deck_2_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="standoff_first_second_deck_3_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="caster_box_front" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="caster_sphere_back" reason="Adjacent" />
+    <disable_collisions link1="caster_box_back" link2="caster_sphere_front" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="geoJoint1" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="geoJoint2" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="geoJoint3" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="geoJoint4" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="gripperBody" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="gripperFinger1" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="gripperFinger2" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="kinect_camera_base_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="laser" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="second_deck" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="caster_box_back" link2="third_deck" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="caster_sphere_back" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="caster_sphere_front" reason="Adjacent" />
+    <disable_collisions link1="caster_box_front" link2="geoJoint1" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="geoJoint2" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="geoJoint3" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="geoJoint4" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="gripperBody" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="gripperFinger1" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="gripperFinger2" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="kinect_camera_base_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="laser" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="second_deck" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="caster_box_front" link2="third_deck" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="caster_sphere_front" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="geoJoint1" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="geoJoint2" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="geoJoint3" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="geoJoint4" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="gripperBody" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="gripperFinger1" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="gripperFinger2" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="kinect_camera_base_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="laser" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="second_deck" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_back" link2="third_deck" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="geoJoint1" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="geoJoint2" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="geoJoint3" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="geoJoint4" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="gripperBody" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="gripperFinger1" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="gripperFinger2" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="kinect_camera_base_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="laser" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="second_deck" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="caster_sphere_front" link2="third_deck" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="geoJoint2" reason="Adjacent" />
+    <disable_collisions link1="geoJoint1" link2="geoJoint3" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="geoJoint4" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="kinect_camera_base_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="laser" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="second_deck" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="geoJoint1" link2="third_deck" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="geoJoint3" reason="Adjacent" />
+    <disable_collisions link1="geoJoint2" link2="geoJoint4" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="gripperBody" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="gripperFinger2" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="laser" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="second_deck" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="geoJoint2" link2="third_deck" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="geoJoint4" reason="Adjacent" />
+    <disable_collisions link1="geoJoint3" link2="gripperBody" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="gripperFinger1" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="laser" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="second_deck" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="geoJoint3" link2="third_deck" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="gripperBody" reason="Adjacent" />
+    <disable_collisions link1="geoJoint4" link2="gripperFinger1" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="laser" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="second_deck" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="geoJoint4" link2="third_deck" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="gripperFinger1" reason="Adjacent" />
+    <disable_collisions link1="gripperBody" link2="gripperFinger2" reason="Adjacent" />
+    <disable_collisions link1="gripperBody" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="laser" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="second_deck" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="gripperBody" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="gripperFinger2" reason="Default" />
+    <disable_collisions link1="gripperFinger1" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="laser" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="second_deck" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="gripperFinger1" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="imu_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="laser" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="second_deck" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="gripperFinger2" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="kinect_camera_base_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="kinect_camera_base_post_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="laser" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="second_deck" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="imu_mount_point_visualizer_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="kinect_camera_base_post_link" reason="Adjacent" />
+    <disable_collisions link1="kinect_camera_base_link" link2="kinect_camera_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="kinect_mount_point_visualizer_link" reason="Default" />
+    <disable_collisions link1="kinect_camera_base_link" link2="kinect_support_plate_link" reason="Adjacent" />
+    <disable_collisions link1="kinect_camera_base_link" link2="laser" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="second_deck" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="kinect_camera_link" reason="Adjacent" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="laser" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="second_deck" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_base_post_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="kinect_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="kinect_support_plate_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="laser" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="second_deck" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="kinect_camera_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="kinect_support_plate_link" reason="Adjacent" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="laser" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="second_deck" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="kinect_mount_point_visualizer_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="laser" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="laser_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="second_deck" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="kinect_support_plate_link" link2="standoff_third_deck_kinect_0_link" reason="Adjacent" />
+    <disable_collisions link1="kinect_support_plate_link" link2="standoff_third_deck_kinect_1_link" reason="Default" />
+    <disable_collisions link1="kinect_support_plate_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="laser" link2="laser_mount_point_visualizer_link" reason="Default" />
+    <disable_collisions link1="laser" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="laser" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="laser" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="laser" link2="second_deck" reason="Adjacent" />
+    <disable_collisions link1="laser" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="laser" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="laser" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="laser" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="laser" link2="standoff_second_third_deck_0_link" reason="Default" />
+    <disable_collisions link1="laser" link2="standoff_second_third_deck_1_link" reason="Default" />
+    <disable_collisions link1="laser" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="laser" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="laser" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="laser" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="laser" link2="third_deck" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="left_wheel" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="second_deck" reason="Adjacent" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="laser_mount_point_visualizer_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="mover4_arm_mount_point_visualizer_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="second_deck" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="left_wheel" link2="third_deck" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="right_wheel" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="second_deck" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="mover4_arm_mount_point_visualizer_link" link2="third_deck" reason="Adjacent" />
+    <disable_collisions link1="right_wheel" link2="second_deck" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="standoff_first_second_deck_0_link" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="right_wheel" link2="third_deck" reason="Never" />
+    <disable_collisions link1="second_deck" link2="standoff_first_second_deck_0_link" reason="Default" />
+    <disable_collisions link1="second_deck" link2="standoff_first_second_deck_1_link" reason="Default" />
+    <disable_collisions link1="second_deck" link2="standoff_first_second_deck_2_link" reason="Default" />
+    <disable_collisions link1="second_deck" link2="standoff_first_second_deck_3_link" reason="Default" />
+    <disable_collisions link1="second_deck" link2="standoff_second_third_deck_0_link" reason="Adjacent" />
+    <disable_collisions link1="second_deck" link2="standoff_second_third_deck_1_link" reason="Adjacent" />
+    <disable_collisions link1="second_deck" link2="standoff_second_third_deck_2_link" reason="Adjacent" />
+    <disable_collisions link1="second_deck" link2="standoff_second_third_deck_3_link" reason="Adjacent" />
+    <disable_collisions link1="second_deck" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="second_deck" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="second_deck" link2="third_deck" reason="Adjacent" />
+    <disable_collisions link1="standoff_first_second_deck_0_link" link2="standoff_first_second_deck_1_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_0_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_0_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_0_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_0_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_0_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_0_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_0_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_0_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_0_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_1_link" link2="standoff_first_second_deck_2_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_1_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_1_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_1_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_1_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_1_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_1_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_1_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_1_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_2_link" link2="standoff_first_second_deck_3_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_2_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_2_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_2_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_2_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_2_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_2_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_2_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_3_link" link2="standoff_second_third_deck_0_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_3_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_3_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_3_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_3_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_3_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="standoff_first_second_deck_3_link" link2="third_deck" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_0_link" link2="standoff_second_third_deck_1_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_0_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_0_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_0_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_0_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_0_link" link2="third_deck" reason="Default" />
+    <disable_collisions link1="standoff_second_third_deck_1_link" link2="standoff_second_third_deck_2_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_1_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_1_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_1_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_1_link" link2="third_deck" reason="Default" />
+    <disable_collisions link1="standoff_second_third_deck_2_link" link2="standoff_second_third_deck_3_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_2_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_2_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_2_link" link2="third_deck" reason="Default" />
+    <disable_collisions link1="standoff_second_third_deck_3_link" link2="standoff_third_deck_kinect_0_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_3_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="standoff_second_third_deck_3_link" link2="third_deck" reason="Default" />
+    <disable_collisions link1="standoff_third_deck_kinect_0_link" link2="standoff_third_deck_kinect_1_link" reason="Never" />
+    <disable_collisions link1="standoff_third_deck_kinect_0_link" link2="third_deck" reason="Adjacent" />
+    <disable_collisions link1="standoff_third_deck_kinect_1_link" link2="third_deck" reason="Adjacent" />
+</robot>
