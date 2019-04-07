@@ -14,18 +14,19 @@ from std_msgs.msg import String
 #     #
 #     #################################
 
-class VoiceCommandRecognizer(object):
+class VoiceCommandMatcher(object):
     '''
     Reads dictionarry with mapping from keywords or phrases to commands from ../config/dictionary.json file
-    Than, attempts to match the incomming (on topic /sttbg_ros/stt_text) recognized by stt word or phrase, to the
+    Than, it attempts to match the incomming (on topic /sttbg_ros/stt_text) recognized by the STT word or phrase, to the
     keywords_to_command dictionary and publish the appropriate command to the /robco/command topic
     '''
 
     def __init__(self):
 
-        super(VoiceCommandRecognizer, self).__init__()
+        super(VoiceCommandMatcher, self).__init__()
 
-        rospy.init_node('voice_command_match')
+        # rospy.init_node('VoiceCommandMatcher', anonymous=True)
+        rospy.init_node('VoiceCommandMatcher')
 
         # Set publish rate
         self.rate = rospy.get_param("~rate", 5)
@@ -44,7 +45,7 @@ class VoiceCommandRecognizer(object):
 
         # relative path to the file, which is in another folder (on the same level as the folder this python file is in)
         #  i.e. <package name>/src/<this python File> and <package name>/config/dictionary.json
-        # new_path = os.path.join(our_python_script_path, "../config/dictionary.json")
+        new_path = os.path.join(our_python_script_path, "../config/dictionary.json")
 
         ##########################################################################################
         ###### IMPORTANT when you add new commands to dictionary.json follow the jason syntax!
@@ -53,11 +54,11 @@ class VoiceCommandRecognizer(object):
         ##########################################################################################
 
         # Read from file /config/dictionary.txt the dictionary values for mapping from keywords or phrases to commands
-        with open(our_python_script_path, mode='r', encoding='utf-8') as jason_file:
+        with open(new_path, mode='r', encoding='utf-8') as jason_file:
             self.keywords_to_command = json.loads(jason_file.read())
 
         # Pretty Printing JSON string back
-        print(json.dumps(self.keywords_to_command, indent = 4, sort_keys=True))
+        # print(json.dumps(self.keywords_to_command, indent = 4, sort_keys=True))
 
 
         # Create publisher passing it the /robco/command output topic and msg_type
@@ -66,10 +67,6 @@ class VoiceCommandRecognizer(object):
 
         # Create subscriber to the incomming on recognized by stt text
         rospy.Subscriber("/sttbg_ros/stt_text", String, self.incomming_text_callback)
-
-        # Anounce we are ready to operate
-        rospy.loginfo("Command matcher is ready to receive STT recognized text")
-        rospy.loginfo("on /sttbg_ros/stt_text topic for matching to robot commands")
 
 
 
@@ -115,8 +112,17 @@ class VoiceCommandRecognizer(object):
 
 if __name__ == "__main__":
     try:
-        VoiceCommandRecognizer()
-        rospy.loginfo("Voice command matching started.")        
+        VoiceCommandMatcher()
+        # Anounce that we are ready to operate to the terminal:
+        rospy.loginfo(" ")
+        rospy.loginfo("###########################################################")
+        rospy.loginfo("Command matcher is ready to receive STT recognized text")
+        rospy.loginfo("on /sttbg_ros/stt_text topic for matching to robot commands")
+        rospy.loginfo("###########################################################")
+        rospy.loginfo(" ")
+
         rospy.spin()
+
     except rospy.ROSInterruptException:
+        rospy.loginfo(" ")
         rospy.loginfo("Voice command matching terminated.")

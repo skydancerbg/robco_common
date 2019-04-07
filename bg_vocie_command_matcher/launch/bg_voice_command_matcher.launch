@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="bg_voice_command_matcher" name="VoiceCommandMatcher" type="voice_command_match.py" output="screen">
+    </node> 
+</launch>

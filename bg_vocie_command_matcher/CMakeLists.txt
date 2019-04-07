@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(bg_voce_command_matcher)
+project(bg_voice_command_matcher)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -113,7 +113,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
 # include
-# ${catkin_INCLUDE_DIRS}
+    ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
