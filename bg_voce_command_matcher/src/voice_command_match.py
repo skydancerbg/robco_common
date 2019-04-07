@@ -18,7 +18,7 @@ class VoiceCommandRecognizer(object):
     '''
     Reads dictionarry with mapping from keywords or phrases to commands from ../config/dictionary.json file
     Than, attempts to match the incomming (on topic /sttbg_ros/stt_text) recognized by stt word or phrase, to the
-    keywords_to_command dictionary and publish the appropriate command to the /robco/voce_command topic
+    keywords_to_command dictionary and publish the appropriate command to the /robco/command topic
     '''
 
     def __init__(self):
@@ -34,7 +34,7 @@ class VoiceCommandRecognizer(object):
         # rospy.on_shutdown(self.cleanup)
 
         self._sttbg_recognized_text_topic = '/sttbg_ros/stt_text'
-        self._output_command_topic = '/robco/voce_command'
+        self._output_command_topic = '/robco/command'
         self._last_incomming_stt_text = None
         self._command = None
 
@@ -53,14 +53,14 @@ class VoiceCommandRecognizer(object):
         ##########################################################################################
 
         # Read from file /config/dictionary.txt the dictionary values for mapping from keywords or phrases to commands
-        with open(new_path, mode='r', encoding='utf-8') as jason_file:
+        with open(our_python_script_path, mode='r', encoding='utf-8') as jason_file:
             self.keywords_to_command = json.loads(jason_file.read())
 
         # Pretty Printing JSON string back
         print(json.dumps(self.keywords_to_command, indent = 4, sort_keys=True))
 
 
-        # Create publisher passing it the /robco/voce_command output topic and msg_type
+        # Create publisher passing it the /robco/command output topic and msg_type
         self.matched_command_pub = rospy.Publisher(self._output_command_topic, String, queue_size=1)
 
 
