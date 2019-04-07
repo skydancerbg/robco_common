@@ -1,0 +1,14 @@
+        ###################################################################################################################
+        ###### IMPORTANT when you add new values to the file follow the jason syntax, copy and paste the file contents to
+        ###### https://jsonformatter.curiousconcept.com/ for an online check for valid jason in the file!!!!!!!!!!!!!!!!!
+        ###################################################################################################################
+
+
+
+
+
+        ###################################################################################################################
+        ###### IMPORTANT when you add new commands to dictionary.json follow the jason syntax!
+        ###### Copy and paste the file contents to https://jsonformatter.curiousconcept.com/
+        ###### for online check for valid jason in the file!
+        ###################################################################################################################

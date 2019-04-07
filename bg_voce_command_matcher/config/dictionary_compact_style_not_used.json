@@ -1,0 +1,15 @@
+{"stop": ["stop", "halt", "abort", "kill", "panic", "off", "freeze", "shut down", "turn off", "help", "help me"],
+"slower": ["slow down", "slower"],
+"faster": ["speed up", "faster"],
+"forward": ["forward", "ahead", "straight"],
+"backward": ["back", "backward", "back up"],
+"rotate left": ["rotate left"],
+"rotate right": ["rotate right"],
+"turn left": ["turn left"],
+"turn right": ["turn right"],
+"quarter": ["quarter speed"],
+"half": ["half speed"],
+"full": ["full speed"],
+"pause": ["pause speech"],
+"continue": ["continue speech"]
+}
