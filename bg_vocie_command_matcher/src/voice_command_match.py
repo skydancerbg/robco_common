@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''voice_command_match ROS Node'''
 import rospy
 import os
@@ -74,11 +75,11 @@ class VoiceCommandMatcher(object):
         '''voice_command_recognize Callback Function'''
         # rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
         rospy.loginfo("New incomming text from the STT topic: %s", data.data)
-        self._last_incomming_stt_text = data.data
+        self._last_incomming_stt_text = data.data.decode('utf-8')
 
         # Get the command from the incomming recognized stt phrase
         command = self.get_command(self._last_incomming_stt_text)
-        command = self.get_command(data.data)
+        # command = self.get_command(data.data)
         # rospy.loginfo("Command output from get command: %s", command)
 
         if command != '':

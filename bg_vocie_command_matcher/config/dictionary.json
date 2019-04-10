@@ -11,5 +11,6 @@
 "half": ["half speed"],
 "full": ["full speed"],
 "pause": ["pause speech"],
+"bring food": ["донеси храна"],
 "continue": ["continue speech"]
 }
